@@ -8,7 +8,6 @@ import java.awt.event.KeyEvent;
  * Created by Евгений on 18.02.2017.
  */
 public class MainWindow extends JFrame {
-    MainClass main = new MainClass();
     public MainWindow() {
         setTitle("XOGame");
         setBounds(0, 0, 500, 500);
@@ -82,6 +81,7 @@ public class MainWindow extends JFrame {
 
         MainGameClass mainGameWindow =  new MainGameClass();
         add(mainGameWindow);
+        mainGameWindow.startGame();
 
         setVisible(true);
     }

@@ -12,6 +12,11 @@ public class MainGameClass extends JPanel {
         setBackground(Color.LIGHT_GRAY);
     }
 
+    public void startGame () {
+        map = new int [main.getSIZE()][main.getSIZE()];
+        repaint();
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
