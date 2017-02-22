@@ -81,7 +81,6 @@ public class MainWindow extends JFrame {
 
         MainGameClass mainGameWindow =  new MainGameClass();
         add(mainGameWindow);
-        mainGameWindow.startGame();
 
         setVisible(true);
     }

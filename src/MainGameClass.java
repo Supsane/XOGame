@@ -1,7 +1,11 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
 /**
@@ -13,47 +17,48 @@ public class MainGameClass extends JPanel {
     private int initPlayer;
     private String gameOver;
     private Random rnd = new Random();
-
-    public void startGame() {
-        map = new int[main.getSIZE()][main.getSIZE()];
-        repaint();
-    }
+    private BufferedImage imgX;
+    private BufferedImage imgO;
 
     public MainGameClass() {
         setBackground(Color.LIGHT_GRAY);
         initPlayer = 1;
         map = new int[main.getSIZE()][main.getSIZE()];
+        try {
+            imgX = ImageIO.read(new File("src/paint/X.png"));
+            imgO = ImageIO.read(new File("src/paint/O.png"));
+        } catch (IOException ex) {
+            System.exit(0);
+        }
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    int x = e.getX() / main.getCELL_SIZE();
-                    int y = e.getY() / main.getCELL_SIZE();
-                    if (initPlayer == 1 && map[x][y] == 0) {
-                        map [x][y] = 1;
-                        initPlayer = 2;
-                        checkFieldFull();
-                        checkWin(1);
-                        /*===================
-                        * тут нужно вставить картинку икса!!!!
-                        * ================*/
+                    if (e.getX() > main.getSIZE_INDENT() && e.getX() < (main.getSIZE_WINDOW() - main.getSIZE_INDENT()) && e.getY() > (main.getSIZE_INDENT() - 25) && e.getY() < (main.getSIZE_WINDOW() - main.getSIZE_INDENT() - 25)) {
+                        int x = (e.getX() - main.getSIZE_INDENT()) / main.getCELL_SIZE();
+                        int y = (e.getY() - main.getSIZE_INDENT() + 25) / main.getCELL_SIZE();
+                        if (initPlayer == 1 && map[x][y] == 0) {
+                            map[x][y] = 1;
+                            initPlayer = 2;
+                            if (checkFieldFull()) {
+                                WinWindow winWindow = new WinWindow();
+                            }
+                            checkWin(1);
+                            repaint();
+                        }
                     }
-
                 }
             }
         });
     }
 
-    public void checkFieldFull() {
+    public boolean checkFieldFull() {
         for (int i = 0; i < main.getSIZE(); i++) {
             for (int j = 0; j < main.getSIZE(); j++) {
-                if (map[i][j] == 0) return;
+                if (map[i][j] == 0) return false;
             }
         }
-        gameOver = "Ничья!!!";
-    /*==============
-    * Здесь нужен вызов завершения игры
-    * ==============*/
+        return true;
     }
 
     public boolean checkLine(int cx, int cy, int vx, int vy, int l, int ox) {
@@ -94,17 +99,30 @@ public class MainGameClass extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        g.setColor(Color.black); //Отрисовка линий ячеек игрового поля
+        //Отрисовка линий ячеек игрового поля
+        g.setColor(Color.black);
         for (int i = 0; i < main.getSIZE() + 1; i++) {
             g.drawLine(main.getSIZE_INDENT(), main.getSIZE_INDENT() + (i * main.getCELL_SIZE()) - 25, main.getSIZE_FIELD() + main.getSIZE_INDENT(), main.getSIZE_INDENT() + (i * main.getCELL_SIZE()) - 25);
             g.drawLine(main.getSIZE_INDENT() + (i * main.getCELL_SIZE()), main.getSIZE_INDENT() - 25, main.getSIZE_INDENT() + (i * main.getCELL_SIZE()), main.getSIZE_INDENT() + main.getSIZE_FIELD() - 25);
         }
-
-        g.setColor(Color.white); //Заливка ячеек игрового поля
+        //Заливка ячеек игрового поля
+        g.setColor(Color.white);
         for (int i = 0; i < main.getSIZE(); i++) {
             for (int j = 0; j < main.getSIZE(); j++) {
                 g.fillRect(main.getSIZE_INDENT() + 1 + (j * main.getCELL_SIZE()), main.getSIZE_INDENT() + (i * main.getCELL_SIZE()) - 24, main.getCELL_SIZE() - 1, main.getCELL_SIZE() - 1);
+            }
+        }
+        //Вставка изображения крестика или нолика
+        for (int i = 0; i < main.getSIZE(); i++) {
+            for (int j = 0; j < main.getSIZE(); j++) {
+                if (map[i][j] > 0) {
+                    if (map[i][j] == 1) {
+                        g.drawImage(imgX, , , null);
+                    }
+                    if (map[i][j] == 2) {
+
+                    }
+                }
             }
         }
     }

@@ -38,6 +38,10 @@ public class MainClass {
         return CELL_SIZE;
     }
 
+    public int getSIZE_WINDOW() {
+        return SIZE_WINDOW;
+    }
+
     public static void main(String[] args) {
         new MainWindow();
     }
