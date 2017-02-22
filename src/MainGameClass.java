@@ -15,7 +15,6 @@ public class MainGameClass extends JPanel {
     MainClass main = new MainClass();
     private int[][] map;
     private int initPlayer;
-    private String gameOver;
     private Random rnd = new Random();
     private BufferedImage imgX;
     private BufferedImage imgO;
@@ -48,20 +47,31 @@ public class MainGameClass extends JPanel {
                         if (initPlayer == 1 && map[x][y] == 0) {
                             map[x][y] = 1;
                             initPlayer = 2;
-                            if (checkFieldFull()) {
+                            if (checkWin(1)) {
                                 WinWindow winWindow = new WinWindow();
+                                return;
+                            } else {
+                                if (checkFieldFull()) {
+                                    main.setGameOver("Ничья");
+                                    WinWindow winWindow = new WinWindow();
+                                }
                             }
-                            checkWin(1);
                             repaint();
                         }
                         //Ход компьютера
                         if (initPlayer == 2) {
                             aiTurnEasy();
-                            if (checkFieldFull()) {
-                                WinWindow winWindow = new WinWindow();
-                            }
-                            checkWin(2);
                             initPlayer = 1;
+                            if (checkWin(2)) {
+                                WinWindow winWindow = new WinWindow();
+                                return;
+                            } else {
+                                if (checkFieldFull()) {
+                                    main.setGameOver("Ничья");
+                                    WinWindow winWindow = new WinWindow();
+                                }
+                            }
+                            repaint();
                         }
                     }
                 }
@@ -86,20 +96,23 @@ public class MainGameClass extends JPanel {
         return true;
     }
 
-    public void checkWin(int ox) {
+    public boolean checkWin(int ox) {
         for (int i = 0; i < main.getSIZE(); i++) {
             for (int j = 0; j < main.getSIZE(); j++) {
                 if (checkLine(i, j, 1, 0, main.getDOT_TO_WIN(), ox) || checkLine(i, j, 0, 1, main.getDOT_TO_WIN(), ox) || checkLine(i, j, 1, 1, main.getDOT_TO_WIN(), ox) || checkLine(i, j, 1, -1, main.getDOT_TO_WIN(), ox)) {
                     if (ox == 1) {
-                        WinWindow winWindow = new WinWindow();
+                        main.setGameOver("Поздравляем, Вы победили!");
+                        return true;
                     }
                     if (ox == 2) {
-                        WinWindow winWindow = new WinWindow();
+                        main.setGameOver("К сожалению, Вы проиграли!");
+                        return true;
                     }
-                    return;
+                    return false;
                 }
             }
         }
+        return false;
     }
 
     public boolean isCellEmpty(int x, int y) {

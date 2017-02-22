@@ -8,6 +8,7 @@ public class MainClass {
     private final int CELL_SIZE = 40;
     private int SIZE_FIELD = SIZE * CELL_SIZE;
     private int SIZE_INDENT = (SIZE_WINDOW-SIZE_FIELD)/2;
+    private String gameOver;
 
 
     public int getSIZE() {
@@ -40,6 +41,14 @@ public class MainClass {
 
     public int getSIZE_WINDOW() {
         return SIZE_WINDOW;
+    }
+
+    public String getGameOver() {
+        return gameOver;
+    }
+
+    public void setGameOver(String gameOver) {
+        this.gameOver = gameOver;
     }
 
     public static void main(String[] args) {
