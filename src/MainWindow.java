@@ -91,7 +91,6 @@ public class MainWindow extends JFrame {
         });
 
         add(mainGameWindow);
-        System.out.println();
         setVisible(true);
     }
 }
