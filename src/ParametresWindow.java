@@ -32,7 +32,7 @@ public class ParametresWindow extends JDialog {
 
         JRadioButton box3 = new JRadioButton("3х3. Фишек для победы - 3");
         box3.setBackground(Color.LIGHT_GRAY);
-        JRadioButton box5 = new JRadioButton("5х5. Фишек для победы - 5", true);
+        JRadioButton box5 = new JRadioButton("5х5. Фишек для победы - 4", true);
         box5.setBackground(Color.LIGHT_GRAY);
         JRadioButton box8 = new JRadioButton("8х8. Фишек для победы - 5");
         box8.setBackground(Color.LIGHT_GRAY);
@@ -125,7 +125,7 @@ public class ParametresWindow extends JDialog {
                 }
                 if (box5.isSelected()) {
                     mainClass.setSIZE(5);
-                    mainClass.setDOT_TO_WIN(5);
+                    mainClass.setDOT_TO_WIN(4);
                 }
                 if (box8.isSelected()) {
                     mainClass.setSIZE(8);
@@ -135,6 +135,10 @@ public class ParametresWindow extends JDialog {
                     mainClass.setSIZE(10);
                     mainClass.setDOT_TO_WIN(7);
                 }
+                mainGameClass.newGame();
+                setDefaultCloseOperation(ParametresWindow.DISPOSE_ON_CLOSE);
+                removeAll();
+                dispose();
             }
         });
 
@@ -148,18 +152,5 @@ public class ParametresWindow extends JDialog {
 
         add(mainPanel);
         setVisible(true);
-
-
-//        while (true) {
-//            if (h_h.isSelected()) {
-//                easy.setEnabled(false);
-//                low.setEnabled(false);
-//                high.setEnabled(false);
-//            } else {
-//                easy.setEnabled(true);
-//                low.setEnabled(true);
-//                high.setEnabled(true);
-//            }
-//        }
     }
 }

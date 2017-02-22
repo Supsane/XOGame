@@ -2,8 +2,8 @@
  * Created by Евгений on 18.02.2017.
  */
 public class MainClass {
-    private int SIZE = 3;
-    private int DOT_TO_WIN = 3;
+    private int SIZE = 5;
+    private int DOT_TO_WIN = 4;
     private final int SIZE_WINDOW = 500;
     private final int CELL_SIZE = 40;
     private int SIZE_FIELD = SIZE * CELL_SIZE;
