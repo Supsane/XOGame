@@ -20,10 +20,17 @@ public class MainGameClass extends JPanel {
     private BufferedImage imgX;
     private BufferedImage imgO;
 
+    public void newGame () {
+        initPlayer = 1;
+        map = new int[main.getSIZE()][main.getSIZE()];
+        repaint();
+    }
+
     public MainGameClass() {
         setBackground(Color.LIGHT_GRAY);
         initPlayer = 1;
         map = new int[main.getSIZE()][main.getSIZE()];
+        repaint();
         try {
             imgX = ImageIO.read(new File("src/paint/X.png"));
             imgO = ImageIO.read(new File("src/paint/O.png"));
@@ -37,6 +44,7 @@ public class MainGameClass extends JPanel {
                     if (e.getX() > main.getSIZE_INDENT() && e.getX() < (main.getSIZE_WINDOW() - main.getSIZE_INDENT()) && e.getY() > (main.getSIZE_INDENT() - 25) && e.getY() < (main.getSIZE_WINDOW() - main.getSIZE_INDENT() - 25)) {
                         int x = (e.getX() - main.getSIZE_INDENT()) / main.getCELL_SIZE();
                         int y = (e.getY() - main.getSIZE_INDENT() + 25) / main.getCELL_SIZE();
+                        //Ход человека
                         if (initPlayer == 1 && map[x][y] == 0) {
                             map[x][y] = 1;
                             initPlayer = 2;
@@ -45,6 +53,15 @@ public class MainGameClass extends JPanel {
                             }
                             checkWin(1);
                             repaint();
+                        }
+                        //Ход компьютера
+                        if (initPlayer == 2) {
+                            aiTurnEasy();
+                            if (checkFieldFull()) {
+                                WinWindow winWindow = new WinWindow();
+                            }
+                            checkWin(2);
+                            initPlayer = 1;
                         }
                     }
                 }
@@ -73,8 +90,12 @@ public class MainGameClass extends JPanel {
         for (int i = 0; i < main.getSIZE(); i++) {
             for (int j = 0; j < main.getSIZE(); j++) {
                 if (checkLine(i, j, 1, 0, main.getDOT_TO_WIN(), ox) || checkLine(i, j, 0, 1, main.getDOT_TO_WIN(), ox) || checkLine(i, j, 1, 1, main.getDOT_TO_WIN(), ox) || checkLine(i, j, 1, -1, main.getDOT_TO_WIN(), ox)) {
-                    if (ox == 1) gameOver = "Player 1 WON";
-                    if (ox == 2) gameOver = "Player 2 WON";
+                    if (ox == 1) {
+                        WinWindow winWindow = new WinWindow();
+                    }
+                    if (ox == 2) {
+                        WinWindow winWindow = new WinWindow();
+                    }
                     return;
                 }
             }
@@ -116,11 +137,13 @@ public class MainGameClass extends JPanel {
         for (int i = 0; i < main.getSIZE(); i++) {
             for (int j = 0; j < main.getSIZE(); j++) {
                 if (map[i][j] > 0) {
+                    int x = main.getSIZE_INDENT() + (i * main.getCELL_SIZE()) + 5;
+                    int y = main.getSIZE_INDENT() + (j * main.getCELL_SIZE()) - 20;
                     if (map[i][j] == 1) {
-                        g.drawImage(imgX, , , null);
+                        g.drawImage(imgX, x, y, null);
                     }
                     if (map[i][j] == 2) {
-
+                        g.drawImage(imgO, x, y, null);
                     }
                 }
             }

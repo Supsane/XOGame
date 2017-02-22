@@ -135,7 +135,6 @@ public class ParametresWindow extends JDialog {
                     mainClass.setSIZE(10);
                     mainClass.setDOT_TO_WIN(7);
                 }
-                mainGameClass.startGame();
             }
         });
 
