@@ -39,7 +39,7 @@ public class WinWindow extends JDialog implements Parametres {
         okCancel.setBackground(Color.LIGHT_GRAY);
 
         JButton ok = new JButton("Новая игра");
-        JButton settings = new JButton("Настроить поле");
+        JButton settings = new JButton("Настройки игры");
         JButton exit = new JButton("Выйти из игры");
         JLabel set1 = new JLabel();
 

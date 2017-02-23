@@ -22,14 +22,14 @@ public class MainWindow extends JFrame implements Parametres{
         JMenu play = new JMenu("Игра");
         JMenuItem newGame = new JMenuItem("Новая игра", KeyEvent.VK_F2);
         newGame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, InputEvent.CTRL_DOWN_MASK));
-        JMenuItem statistic = new JMenuItem("Статистика", KeyEvent.VK_F3);
-        statistic.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, InputEvent.CTRL_DOWN_MASK));
-        JMenuItem parametres = new JMenuItem("Параметры", KeyEvent.VK_F4);
-        parametres.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.CTRL_DOWN_MASK));
-        JMenuItem exit = new JMenuItem("Выход", KeyEvent.VK_F5);
-        exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, InputEvent.CTRL_DOWN_MASK));
+//        JMenuItem statistic = new JMenuItem("Статистика", KeyEvent.VK_F3);
+//        statistic.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, InputEvent.CTRL_DOWN_MASK));
+        JMenuItem parametres = new JMenuItem("Параметры", KeyEvent.VK_F3);
+        parametres.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, InputEvent.CTRL_DOWN_MASK));
+        JMenuItem exit = new JMenuItem("Выход", KeyEvent.VK_F4);
+        exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.CTRL_DOWN_MASK));
         play.add(newGame);
-        play.add(statistic);
+//        play.add(statistic);
         play.add(parametres);
         play.addSeparator();
         play.add(exit);
@@ -67,12 +67,12 @@ public class MainWindow extends JFrame implements Parametres{
             }
         });
 
-        statistic.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new StatisticWindow();
-            }
-        });
+//        statistic.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                new StatisticWindow();
+//            }
+//        });
 
         parametres.addActionListener(new ActionListener() {
             @Override
