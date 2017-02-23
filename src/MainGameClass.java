@@ -11,7 +11,7 @@ import java.util.Random;
 /**
  * Created by Евгений on 18.02.2017.
  */
-public class MainGameClass extends JPanel implements Parametres{
+public class MainGameClass extends JPanel implements Parametres {
     private int SIZE = 3;
     private int DOT_TO_WIN = 3;
     private final int SIZE_WINDOW = 500;
@@ -19,6 +19,13 @@ public class MainGameClass extends JPanel implements Parametres{
     private int SIZE_FIELD = SIZE * CELL_SIZE;
     private int SIZE_INDENT = (SIZE_WINDOW - SIZE_FIELD) / 2;
     private String gameOver;
+    private int[][] map;
+    private int initPlayer;
+    private Random rnd = new Random();
+    private BufferedImage imgX;
+    private BufferedImage imgO;
+    private int opponent = 0;
+    private int level = 0;
 
     public String getGameOver() {
         return gameOver;
@@ -44,12 +51,13 @@ public class MainGameClass extends JPanel implements Parametres{
         return SIZE_FIELD;
     }
 
-    MainClass main = new MainClass();
-    private int[][] map;
-    private int initPlayer;
-    private Random rnd = new Random();
-    private BufferedImage imgX;
-    private BufferedImage imgO;
+    public void setOpponent(int opponent) {
+        this.opponent = opponent;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     public void newGame() {
         initPlayer = 1;
@@ -84,26 +92,45 @@ public class MainGameClass extends JPanel implements Parametres{
                                 return;
                             } else {
                                 if (checkFieldFull()) {
-                                    gameOver = "Ничья";
+                                    gameOver = "Ничья!";
                                     WinWindow winWindow = new WinWindow();
                                 }
                             }
                             repaint();
+                            if (opponent == 1) return;
                         }
                         //Ход компьютера
-                        if (initPlayer == 2) {
-                            aiTurnEasy();
-                            initPlayer = 1;
-                            if (checkWin(2)) {
-                                WinWindow winWindow = new WinWindow();
-                                return;
-                            } else {
-                                if (checkFieldFull()) {
-                                    gameOver = "Ничья";
+                        if (opponent == 0) {
+                            if (initPlayer == 2) {
+                                if (level == 0) aiTurnEasy();
+                                if (level == 1) aiTurnHigh();
+                                initPlayer = 1;
+                                if (checkWin(2)) {
                                     WinWindow winWindow = new WinWindow();
+                                    return;
+                                } else {
+                                    if (checkFieldFull()) {
+                                        gameOver = "Ничья!";
+                                        WinWindow winWindow = new WinWindow();
+                                    }
                                 }
+                                repaint();
                             }
-                            repaint();
+                        } else { //Ход второго оппонента
+                            if (map[x][y] == 0) {
+                                map[x][y] = 2;
+                                initPlayer = 1;
+                                if (checkWin(2)) {
+                                    WinWindow winWindow = new WinWindow();
+                                    return;
+                                } else {
+                                    if (checkFieldFull()) {
+                                        gameOver = "Ничья!";
+                                        WinWindow winWindow = new WinWindow();
+                                    }
+                                }
+                                repaint();
+                            }
                         }
                     }
                 }
@@ -158,6 +185,44 @@ public class MainGameClass extends JPanel implements Parametres{
             x = rnd.nextInt(SIZE);
             y = rnd.nextInt(SIZE);
         } while (!isCellEmpty(x, y));
+        map[x][y] = 2;
+        repaint();
+    }
+
+    public void aiTurnHigh() {
+        int x = -1, y = -1;
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (isCellEmpty(i, j)) {
+                    map[i][j] = 2;
+                    if (checkWin(1)) {
+                        x = i;
+                        y = j;
+                    }
+                    map[i][j] = 0;
+                }
+            }
+        }
+        if (x == -1 && y == -1) {
+            for (int i = 0; i < SIZE; i++) {
+                for (int j = 0; j < SIZE; j++) {
+                    if (isCellEmpty(i, j)) {
+                        map[i][j] = 1;
+                        if (checkWin(1)) {
+                            x = i;
+                            y = j;
+                        }
+                        map[i][j] = 0;
+                    }
+                }
+            }
+        }
+        if (x == -1 && y == -1) {
+            do {
+                x = rnd.nextInt(SIZE);
+                y = rnd.nextInt(SIZE);
+            } while (!isCellEmpty(x, y));
+        }
         map[x][y] = 2;
         repaint();
     }

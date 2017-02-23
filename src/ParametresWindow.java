@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by Евгений on 18.02.2017.
  */
-public class ParametresWindow extends JDialog  implements Parametres{
+public class ParametresWindow extends JDialog implements Parametres {
 
     public ParametresWindow() {
         setTitle("Параметры");
@@ -54,32 +54,22 @@ public class ParametresWindow extends JDialog  implements Parametres{
         createGame.setBackground(Color.LIGHT_GRAY);
         createGame.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Выбрать тип игры", TitledBorder.LEFT, TitledBorder.TOP));
 
-        JRadioButton h_h = new JRadioButton("Человек vs Человек", true);
+        JRadioButton h_h = new JRadioButton("Человек vs Человек");
         h_h.setBackground(Color.LIGHT_GRAY);
-        JRadioButton h_AI = new JRadioButton("Человек vs Компьютер");
+        JRadioButton h_AI = new JRadioButton("Человек vs Компьютер", true);
         h_AI.setBackground(Color.LIGHT_GRAY);
         JLabel l1 = new JLabel();
         JLabel l2 = new JLabel();
-        JLabel l3 = new JLabel();
         JRadioButton easy = new JRadioButton("Легко", true);
         easy.setBackground(Color.LIGHT_GRAY);
-        JRadioButton low = new JRadioButton("Средне");
-        low.setBackground(Color.LIGHT_GRAY);
         JRadioButton high = new JRadioButton("Тяжело");
         high.setBackground(Color.LIGHT_GRAY);
         ButtonGroup versPlay = new ButtonGroup();
         versPlay.add(h_AI);
         versPlay.add(h_h);
 
-        if (h_h.isSelected()) {
-            easy.setEnabled(false);
-            low.setEnabled(false);
-            high.setEnabled(false);
-        }
-
         ButtonGroup levelPlay = new ButtonGroup();
         levelPlay.add(easy);
-        levelPlay.add(low);
         levelPlay.add(high);
 
         createGame.add(h_h);
@@ -87,8 +77,6 @@ public class ParametresWindow extends JDialog  implements Parametres{
         createGame.add(l1);
         createGame.add(easy);
         createGame.add(l2);
-        createGame.add(low);
-        createGame.add(l3);
         createGame.add(high);
 
         /*=========================================*/
@@ -104,6 +92,26 @@ public class ParametresWindow extends JDialog  implements Parametres{
 
         okCancel.add(ok);
         okCancel.add(cancel);
+
+        h_h.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (h_h.isSelected()) {
+                    easy.setEnabled(false);
+                    high.setEnabled(false);
+                }
+            }
+        });
+
+        h_AI.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (h_AI.isSelected()) {
+                    easy.setEnabled(true);
+                    high.setEnabled(true);
+                }
+            }
+        });
 
         cancel.addActionListener(new ActionListener() {
             @Override
@@ -145,6 +153,10 @@ public class ParametresWindow extends JDialog  implements Parametres{
                     mainGameClass.setSIZE_INDENT(mainGameClass.getSIZE_FIELD());
                     mainGameClass.newGame();
                 }
+                if (h_h.isSelected()) mainGameClass.setOpponent(1);
+                if (h_AI.isSelected()) mainGameClass.setOpponent(0);
+                if (easy.isSelected()) mainGameClass.setLevel(0);
+                if (high.isSelected()) mainGameClass.setLevel(1);
                 setDefaultCloseOperation(ParametresWindow.DISPOSE_ON_CLOSE);
                 removeAll();
                 dispose();
