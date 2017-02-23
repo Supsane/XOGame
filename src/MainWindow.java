@@ -7,9 +7,7 @@ import java.awt.event.KeyEvent;
 /**
  * Created by Евгений on 18.02.2017.
  */
-public class MainWindow extends JFrame {
-    MainGameClass mainGameWindow = new MainGameClass();
-
+public class MainWindow extends JFrame implements Parametres{
     public MainWindow() {
         setTitle("XOGame");
         setBounds(0, 0, 500, 500);
@@ -86,11 +84,11 @@ public class MainWindow extends JFrame {
         newGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainGameWindow.newGame();
+                mainGameClass.newGame();
             }
         });
 
-        add(mainGameWindow);
+        add(mainGameClass);
         setVisible(true);
     }
 }

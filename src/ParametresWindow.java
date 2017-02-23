@@ -7,9 +7,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by Евгений on 18.02.2017.
  */
-public class ParametresWindow extends JDialog {
-    MainClass mainClass = new MainClass();
-    MainGameClass mainGameClass = new MainGameClass();
+public class ParametresWindow extends JDialog  implements Parametres{
 
     public ParametresWindow() {
         setTitle("Параметры");
@@ -120,22 +118,33 @@ public class ParametresWindow extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (box3.isSelected()) {
-                    mainClass.setSIZE(3);
-                    mainClass.setDOT_TO_WIN(3);
+                    mainGameClass.setSIZE(3);
+                    mainGameClass.setDOT_TO_WIN(3);
+                    mainGameClass.setSIZE_FIELD(3);
+                    mainGameClass.setSIZE_INDENT(mainGameClass.getSIZE_FIELD());
+                    mainGameClass.newGame();
                 }
                 if (box5.isSelected()) {
-                    mainClass.setSIZE(5);
-                    mainClass.setDOT_TO_WIN(4);
+                    mainGameClass.setSIZE(5);
+                    mainGameClass.setDOT_TO_WIN(4);
+                    mainGameClass.setSIZE_FIELD(5);
+                    mainGameClass.setSIZE_INDENT(mainGameClass.getSIZE_FIELD());
+                    mainGameClass.newGame();
                 }
                 if (box8.isSelected()) {
-                    mainClass.setSIZE(8);
-                    mainClass.setDOT_TO_WIN(5);
+                    mainGameClass.setSIZE(8);
+                    mainGameClass.setDOT_TO_WIN(5);
+                    mainGameClass.setSIZE_FIELD(8);
+                    mainGameClass.setSIZE_INDENT(mainGameClass.getSIZE_FIELD());
+                    mainGameClass.newGame();
                 }
                 if (box10.isSelected()) {
-                    mainClass.setSIZE(10);
-                    mainClass.setDOT_TO_WIN(7);
+                    mainGameClass.setSIZE(10);
+                    mainGameClass.setDOT_TO_WIN(7);
+                    mainGameClass.setSIZE_FIELD(10);
+                    mainGameClass.setSIZE_INDENT(mainGameClass.getSIZE_FIELD());
+                    mainGameClass.newGame();
                 }
-                mainGameClass.newGame();
                 setDefaultCloseOperation(ParametresWindow.DISPOSE_ON_CLOSE);
                 removeAll();
                 dispose();

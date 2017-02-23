@@ -11,7 +11,39 @@ import java.util.Random;
 /**
  * Created by Евгений on 18.02.2017.
  */
-public class MainGameClass extends JPanel {
+public class MainGameClass extends JPanel implements Parametres{
+    private int SIZE = 3;
+    private int DOT_TO_WIN = 3;
+    private final int SIZE_WINDOW = 500;
+    private final int CELL_SIZE = 40;
+    private int SIZE_FIELD = SIZE * CELL_SIZE;
+    private int SIZE_INDENT = (SIZE_WINDOW - SIZE_FIELD) / 2;
+    private String gameOver;
+
+    public String getGameOver() {
+        return gameOver;
+    }
+
+    public void setSIZE(int SIZE) {
+        this.SIZE = SIZE;
+    }
+
+    public void setDOT_TO_WIN(int DOT_TO_WIN) {
+        this.DOT_TO_WIN = DOT_TO_WIN;
+    }
+
+    public void setSIZE_FIELD(int SIZE) {
+        this.SIZE_FIELD = SIZE * 40;
+    }
+
+    public void setSIZE_INDENT(int SIZE_FIELD) {
+        this.SIZE_INDENT = (SIZE_WINDOW - SIZE_FIELD) / 2;
+    }
+
+    public int getSIZE_FIELD() {
+        return SIZE_FIELD;
+    }
+
     MainClass main = new MainClass();
     private int[][] map;
     private int initPlayer;
@@ -19,16 +51,16 @@ public class MainGameClass extends JPanel {
     private BufferedImage imgX;
     private BufferedImage imgO;
 
-    public void newGame () {
+    public void newGame() {
         initPlayer = 1;
-        map = new int[main.getSIZE()][main.getSIZE()];
+        map = new int[SIZE][SIZE];
         repaint();
     }
 
     public MainGameClass() {
         setBackground(Color.LIGHT_GRAY);
         initPlayer = 1;
-        map = new int[main.getSIZE()][main.getSIZE()];
+        map = new int[SIZE][SIZE];
         repaint();
         try {
             imgX = ImageIO.read(new File("src/paint/X.png"));
@@ -40,9 +72,9 @@ public class MainGameClass extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    if (e.getX() > main.getSIZE_INDENT() && e.getX() < (main.getSIZE_WINDOW() - main.getSIZE_INDENT()) && e.getY() > (main.getSIZE_INDENT() - 25) && e.getY() < (main.getSIZE_WINDOW() - main.getSIZE_INDENT() - 25)) {
-                        int x = (e.getX() - main.getSIZE_INDENT()) / main.getCELL_SIZE();
-                        int y = (e.getY() - main.getSIZE_INDENT() + 25) / main.getCELL_SIZE();
+                    if (e.getX() > SIZE_INDENT && e.getX() < (SIZE_WINDOW - SIZE_INDENT) && e.getY() > (SIZE_INDENT - 25) && e.getY() < (SIZE_WINDOW - SIZE_INDENT - 25)) {
+                        int x = (e.getX() - SIZE_INDENT) / CELL_SIZE;
+                        int y = (e.getY() - SIZE_INDENT + 25) / CELL_SIZE;
                         //Ход человека
                         if (initPlayer == 1 && map[x][y] == 0) {
                             map[x][y] = 1;
@@ -52,7 +84,7 @@ public class MainGameClass extends JPanel {
                                 return;
                             } else {
                                 if (checkFieldFull()) {
-                                    main.setGameOver("Ничья");
+                                    gameOver = "Ничья";
                                     WinWindow winWindow = new WinWindow();
                                 }
                             }
@@ -67,7 +99,7 @@ public class MainGameClass extends JPanel {
                                 return;
                             } else {
                                 if (checkFieldFull()) {
-                                    main.setGameOver("Ничья");
+                                    gameOver = "Ничья";
                                     WinWindow winWindow = new WinWindow();
                                 }
                             }
@@ -80,8 +112,8 @@ public class MainGameClass extends JPanel {
     }
 
     public boolean checkFieldFull() {
-        for (int i = 0; i < main.getSIZE(); i++) {
-            for (int j = 0; j < main.getSIZE(); j++) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
                 if (map[i][j] == 0) return false;
             }
         }
@@ -89,7 +121,7 @@ public class MainGameClass extends JPanel {
     }
 
     public boolean checkLine(int cx, int cy, int vx, int vy, int l, int ox) {
-        if (cx + l * vx > main.getSIZE() || cy + l * vy > main.getSIZE() || cy + l * vy < -1) return false;
+        if (cx + l * vx > SIZE || cy + l * vy > SIZE || cy + l * vy < -1) return false;
         for (int i = 0; i < l; i++) {
             if (map[cx + i * vx][cy + i * vy] != ox) return false;
         }
@@ -97,15 +129,15 @@ public class MainGameClass extends JPanel {
     }
 
     public boolean checkWin(int ox) {
-        for (int i = 0; i < main.getSIZE(); i++) {
-            for (int j = 0; j < main.getSIZE(); j++) {
-                if (checkLine(i, j, 1, 0, main.getDOT_TO_WIN(), ox) || checkLine(i, j, 0, 1, main.getDOT_TO_WIN(), ox) || checkLine(i, j, 1, 1, main.getDOT_TO_WIN(), ox) || checkLine(i, j, 1, -1, main.getDOT_TO_WIN(), ox)) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (checkLine(i, j, 1, 0, DOT_TO_WIN, ox) || checkLine(i, j, 0, 1, DOT_TO_WIN, ox) || checkLine(i, j, 1, 1, DOT_TO_WIN, ox) || checkLine(i, j, 1, -1, DOT_TO_WIN, ox)) {
                     if (ox == 1) {
-                        main.setGameOver("Поздравляем, Вы победили!");
+                        gameOver = "Поздравляем, Вы победили!";
                         return true;
                     }
                     if (ox == 2) {
-                        main.setGameOver("К сожалению, Вы проиграли!");
+                        gameOver = "К сожалению, Вы проиграли!";
                         return true;
                     }
                     return false;
@@ -123,8 +155,8 @@ public class MainGameClass extends JPanel {
     public void aiTurnEasy() {
         int x, y;
         do {
-            x = rnd.nextInt(main.getSIZE());
-            y = rnd.nextInt(main.getSIZE());
+            x = rnd.nextInt(SIZE);
+            y = rnd.nextInt(SIZE);
         } while (!isCellEmpty(x, y));
         map[x][y] = 2;
         repaint();
@@ -135,23 +167,23 @@ public class MainGameClass extends JPanel {
         super.paintComponent(g);
         //Отрисовка линий ячеек игрового поля
         g.setColor(Color.black);
-        for (int i = 0; i < main.getSIZE() + 1; i++) {
-            g.drawLine(main.getSIZE_INDENT(), main.getSIZE_INDENT() + (i * main.getCELL_SIZE()) - 25, main.getSIZE_FIELD() + main.getSIZE_INDENT(), main.getSIZE_INDENT() + (i * main.getCELL_SIZE()) - 25);
-            g.drawLine(main.getSIZE_INDENT() + (i * main.getCELL_SIZE()), main.getSIZE_INDENT() - 25, main.getSIZE_INDENT() + (i * main.getCELL_SIZE()), main.getSIZE_INDENT() + main.getSIZE_FIELD() - 25);
+        for (int i = 0; i < SIZE + 1; i++) {
+            g.drawLine(SIZE_INDENT, SIZE_INDENT + (i * CELL_SIZE) - 25, SIZE_FIELD + SIZE_INDENT, SIZE_INDENT + (i * CELL_SIZE) - 25);
+            g.drawLine(SIZE_INDENT + (i * CELL_SIZE), SIZE_INDENT - 25, SIZE_INDENT + (i * CELL_SIZE), SIZE_INDENT + SIZE_FIELD - 25);
         }
         //Заливка ячеек игрового поля
         g.setColor(Color.white);
-        for (int i = 0; i < main.getSIZE(); i++) {
-            for (int j = 0; j < main.getSIZE(); j++) {
-                g.fillRect(main.getSIZE_INDENT() + 1 + (j * main.getCELL_SIZE()), main.getSIZE_INDENT() + (i * main.getCELL_SIZE()) - 24, main.getCELL_SIZE() - 1, main.getCELL_SIZE() - 1);
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                g.fillRect(SIZE_INDENT + 1 + (j * CELL_SIZE), SIZE_INDENT + (i * CELL_SIZE) - 24, CELL_SIZE - 1, CELL_SIZE - 1);
             }
         }
         //Вставка изображения крестика или нолика
-        for (int i = 0; i < main.getSIZE(); i++) {
-            for (int j = 0; j < main.getSIZE(); j++) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
                 if (map[i][j] > 0) {
-                    int x = main.getSIZE_INDENT() + (i * main.getCELL_SIZE()) + 5;
-                    int y = main.getSIZE_INDENT() + (j * main.getCELL_SIZE()) - 20;
+                    int x = SIZE_INDENT + (i * CELL_SIZE) + 5;
+                    int y = SIZE_INDENT + (j * CELL_SIZE) - 20;
                     if (map[i][j] == 1) {
                         g.drawImage(imgX, x, y, null);
                     }

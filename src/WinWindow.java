@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
  */
 public class WinWindow extends JDialog {
     MainGameClass mainGameWindow = new MainGameClass();
-    MainClass main = new MainClass();
     public WinWindow() {
         setTitle("Конец игры!!!");
         setModal(true);
@@ -20,7 +19,7 @@ public class WinWindow extends JDialog {
         winWindow.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 15));
         winWindow.setBackground(Color.LIGHT_GRAY);
 
-        JLabel win = new JLabel(main.getGameOver());
+        JLabel win = new JLabel(mainGameWindow.getGameOver());
         JButton ok = new JButton("Начать новую игру");
         JButton cancel = new JButton("Отмена");
 
