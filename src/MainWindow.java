@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
  */
 public class MainWindow extends JFrame implements Parametres{
     public MainWindow() {
-        setTitle("XOGame");
+        setTitle("Крестики-Нолики");
         setBounds(0, 0, 500, 500);
         setLocationRelativeTo(null);
         setResizable(false);

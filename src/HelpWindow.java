@@ -6,7 +6,7 @@ import java.awt.*;
  */
 public class HelpWindow extends JDialog {
     public HelpWindow() {
-        setTitle("Инфо");
+        setTitle("Справка");
         setModal(true);
         setBounds(0, 0, 250, 400);
         setLocationRelativeTo(null);
@@ -23,53 +23,51 @@ public class HelpWindow extends JDialog {
 
         JPanel textWindow2 = new JPanel(new GridLayout(1,1));
         textWindow2.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        JPanel textWindow = new JPanel(new GridLayout(20, 1, 5, 0));
+        JPanel textWindow = new JPanel(new GridLayout(23, 1, 5, 0));
         textWindow.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 10));
         textWindow.setBackground(Color.LIGHT_GRAY);
 
 
 
-        JLabel stringOne = new JLabel("w");
-        JLabel stringTwo = new JLabel("практических целях на за-");
-        JLabel stringFree = new JLabel("нятиях в обучающем");
-        JLabel stringFour1 = new JLabel("портале");
-        JLabel stringFour2 = new JLabel();
-        JLabel stringFour3 = new JLabel();
-        JLabel stringFour = new JLabel("GeekBrains");
-        JLabel stringFive1 = new JLabel();
-        JLabel stringFive2 = new JLabel();
-        JLabel stringFive3 = new JLabel();
-        JLabel stringFive = new JLabel("Разработчик - Чашурин Евгений");
-        JLabel stringSix = new JLabel("Наставник - Фисунов Александр");
-        stringOne.setFont(new Font("Verdana", Font.PLAIN, 12));
-        stringOne.setHorizontalAlignment(JLabel.LEFT);
-        stringTwo.setFont(new Font("Verdana", Font.PLAIN, 12));
-        stringTwo.setHorizontalAlignment(JLabel.LEFT);
-        stringFree.setFont(new Font("Verdana", Font.PLAIN, 12));
-        stringFree.setHorizontalAlignment(JLabel.LEFT);
-        stringFour1.setFont(new Font("Verdana", Font.PLAIN, 12));
-        stringFour1.setHorizontalAlignment(JLabel.LEFT);
-        stringFour.setFont(new Font("Verdana", Font.BOLD, 12));
-        stringFour.setHorizontalAlignment(JLabel.CENTER);
-        stringFive.setFont(new Font("Verdana", Font.PLAIN, 11));
-        stringFive.setHorizontalAlignment(JLabel.LEFT);
-        stringSix.setFont(new Font("Verdana", Font.PLAIN, 11));
-        stringSix.setHorizontalAlignment(JLabel.LEFT);
+        JLabel stringOne = new JLabel("Перед Вами классическая игра");
+        JLabel stringOne1 = new JLabel("\"Крестики-Нолики\".");
+        JLabel stringOne2 = new JLabel();
+        JLabel stringTwo = new JLabel("Меню \"Игра\" содержит в себе");
+        JLabel stringTwo2 = new JLabel("кнопку запуска новой игры");
+        JLabel stringTwo3 = new JLabel("игры (Ctrl+F2), кнопку вызова");
+        JLabel stringTwo4 = new JLabel("окна Параметры (Ctrl+F3),");
+        JLabel stringTwo5 = new JLabel("а также кнопку Выхода");
+        JLabel stringTwo6 = new JLabel("из игры (Ctrl+F4)");
 
+        stringOne.setHorizontalAlignment(JLabel.LEFT);
+        stringOne.setFont(new Font("Verdana", Font.PLAIN, 11));
+        stringOne1.setHorizontalAlignment(JLabel.LEFT);
+        stringOne1.setFont(new Font("Verdana", Font.PLAIN, 11));
+        stringOne2.setHorizontalAlignment(JLabel.LEFT);
+        stringOne2.setFont(new Font("Verdana", Font.PLAIN, 11));
+        stringTwo.setHorizontalAlignment(JLabel.LEFT);
+        stringTwo.setFont(new Font("Verdana", Font.PLAIN, 11));
+        stringTwo2.setHorizontalAlignment(JLabel.LEFT);
+        stringTwo2.setFont(new Font("Verdana", Font.PLAIN, 11));
+        stringTwo3.setHorizontalAlignment(JLabel.LEFT);
+        stringTwo3.setFont(new Font("Verdana", Font.PLAIN, 11));
+        stringTwo4.setHorizontalAlignment(JLabel.LEFT);
+        stringTwo4.setFont(new Font("Verdana", Font.PLAIN, 11));
+        stringTwo5.setHorizontalAlignment(JLabel.LEFT);
+        stringTwo5.setFont(new Font("Verdana", Font.PLAIN, 11));
+        stringTwo6.setHorizontalAlignment(JLabel.LEFT);
+        stringTwo6.setFont(new Font("Verdana", Font.PLAIN, 11));
 
 
         textWindow.add(stringOne);
+        textWindow.add(stringOne1);
+        textWindow.add(stringOne2);
         textWindow.add(stringTwo);
-        textWindow.add(stringFree);
-        textWindow.add(stringFour1);
-        textWindow.add(stringFour2);
-        textWindow.add(stringFour3);
-        textWindow.add(stringFour);
-        textWindow.add(stringFive1);
-        textWindow.add(stringFive2);
-        textWindow.add(stringFive3);
-        textWindow.add(stringFive);
-        textWindow.add(stringSix);
+        textWindow.add(stringTwo2);
+        textWindow.add(stringTwo3);
+        textWindow.add(stringTwo4);
+        textWindow.add(stringTwo5);
+        textWindow.add(stringTwo6);
 
 
 
