@@ -71,9 +71,10 @@ public class MainGameClass extends JPanel implements Parametres {
         map = new int[SIZE][SIZE];
         repaint();
         try {
-            imgX = ImageIO.read(new File("src/paint/X.png"));
-            imgO = ImageIO.read(new File("src/paint/O.png"));
+            imgX = ImageIO.read(getClass().getResource("X.png"));
+            imgO = ImageIO.read(getClass().getResource("O.png"));
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Error: couldn't load images");
             System.exit(0);
         }
         addMouseListener(new MouseAdapter() {
