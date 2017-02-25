@@ -87,6 +87,7 @@ public class MainGameClass extends JPanel implements Parametres {
                         if (initPlayer == 1 && map[x][y] == 0) {
                             map[x][y] = 1;
                             initPlayer = 2;
+                            repaint();
                             if (checkWin(1)) {
                                 WinWindow winWindow = new WinWindow();
                                 return;
@@ -120,6 +121,7 @@ public class MainGameClass extends JPanel implements Parametres {
                             if (map[x][y] == 0) {
                                 map[x][y] = 2;
                                 initPlayer = 1;
+                                repaint();
                                 if (checkWin(2)) {
                                     WinWindow winWindow = new WinWindow();
                                     return;
