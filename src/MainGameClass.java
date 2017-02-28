@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
@@ -89,7 +88,7 @@ public class MainGameClass extends JPanel implements Parametres {
                             map[x][y] = 1;
                             initPlayer = 2;
                             repaint();
-                            if (checkWin(1)) {
+                            if (checkWin(1, opponent)) {
                                 WinWindow winWindow = new WinWindow();
                                 return;
                             } else {
@@ -107,7 +106,7 @@ public class MainGameClass extends JPanel implements Parametres {
                                 if (level == 0) aiTurnEasy();
                                 if (level == 1) aiTurnHigh();
                                 initPlayer = 1;
-                                if (checkWin(2)) {
+                                if (checkWin(2, opponent)) {
                                     WinWindow winWindow = new WinWindow();
                                     return;
                                 } else {
@@ -123,7 +122,7 @@ public class MainGameClass extends JPanel implements Parametres {
                                 map[x][y] = 2;
                                 initPlayer = 1;
                                 repaint();
-                                if (checkWin(2)) {
+                                if (checkWin(2, opponent)) {
                                     WinWindow winWindow = new WinWindow();
                                     return;
                                 } else {
@@ -158,16 +157,24 @@ public class MainGameClass extends JPanel implements Parametres {
         return true;
     }
 
-    public boolean checkWin(int ox) {
+    public boolean checkWin(int ox, int opponent) {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 if (checkLine(i, j, 1, 0, DOT_TO_WIN, ox) || checkLine(i, j, 0, 1, DOT_TO_WIN, ox) || checkLine(i, j, 1, 1, DOT_TO_WIN, ox) || checkLine(i, j, 1, -1, DOT_TO_WIN, ox)) {
-                    if (ox == 1) {
+                    if (ox == 1 && opponent == 0) {
                         gameOver = "Поздравляем, Вы победили!";
                         return true;
                     }
-                    if (ox == 2) {
+                    if (ox == 2 && opponent == 0) {
                         gameOver = "К сожалению, Вы проиграли!";
+                        return true;
+                    }
+                    if (ox == 1 && opponent == 1) {
+                        gameOver = "Поздравляем с победой Игрока 1 (ставил Х)";
+                        return true;
+                    }
+                    if (ox == 2 && opponent == 1) {
+                        gameOver = "Поздравляем с победой Игрока 2 (ставил О)";
                         return true;
                     }
                     return false;
@@ -198,7 +205,7 @@ public class MainGameClass extends JPanel implements Parametres {
             for (int j = 0; j < SIZE; j++) {
                 if (isCellEmpty(i, j)) {
                     map[i][j] = 2;
-                    if (checkWin(1)) {
+                    if (checkWin(1, opponent)) {
                         x = i;
                         y = j;
                     }
@@ -211,7 +218,7 @@ public class MainGameClass extends JPanel implements Parametres {
                 for (int j = 0; j < SIZE; j++) {
                     if (isCellEmpty(i, j)) {
                         map[i][j] = 1;
-                        if (checkWin(1)) {
+                        if (checkWin(1, opponent)) {
                             x = i;
                             y = j;
                         }
